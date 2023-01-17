@@ -12,3 +12,4 @@ Digiwares_API_84_BeforeMultipleWarehousesTags
 models/__pycache__
 resources/__pycache__
 migrations
+.env
