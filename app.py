@@ -34,6 +34,8 @@ def create_app(db_url=None):
     migrate = Migrate(app, db)
     api = Api(app)
 
+# ElephantSQL(prod) URL  postgresql://zvzkpylj:YDkLZu3nlGwx70vb9RuvJOvOlIUiCc8D@tiny.db.elephantsql.com/zvzkpylj
+
     # secrets.SystemRandom().getrandbits(128)
     app.config["JWT_SECRET_KEY"] = "229527901563774059235549231511306619001"
     jwt = JWTManager(app)
