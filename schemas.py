@@ -11,7 +11,7 @@ class PlainItemSchema(Schema):
 
 
 class PlainWarehouseSchema(Schema):
-    id = fields.Int(dump_only=True)   # Make sure warehouse_id doesn't need to be named id
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     city = fields.Str(required=True)
     state = fields.Str(required=True)
