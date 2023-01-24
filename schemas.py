@@ -2,7 +2,7 @@ from marshmallow import Schema, fields
 
 
 class PlainItemSchema(Schema):
-    item_id = fields.Int(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     retail_price = fields.Float(required=True)
     wholesale_price = fields.Float(required=True)
@@ -23,7 +23,7 @@ class PlainTagSchema(Schema):
 
 
 class ItemUpdateSchema(Schema):
-    item_id = fields.Int()
+    id = fields.Int()
     name = fields.Str()
     retail_price = fields.Float()
     wholesale_price = fields.Float()
