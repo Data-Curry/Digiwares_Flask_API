@@ -3,7 +3,6 @@
 .venv
 __pycache__
 .idea/
-instance/data.db
 DS_store
 Digiwares_API_102/
 Digiwares_API_67/
