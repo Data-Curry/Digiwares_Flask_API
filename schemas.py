@@ -9,8 +9,6 @@ class PlainItemSchema(Schema):
 class PlainWarehouseSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
-    city = fields.Str(required=True)
-    state = fields.Str(required=True)
 
 
 class PlainTagSchema(Schema):
@@ -38,11 +36,14 @@ class ItemSchema(PlainItemSchema):
     wholesale_price = fields.Float(required=True)
     category = fields.Str(required=True)
     vendor = fields.Str(required=True)
+    description = fields.Str()
     quantity = fields.Integer(required=True)
     tags = fields.List(fields.Nested(PlainTagSchema()), dump_only=True)
 
 
 class WarehouseSchema(PlainWarehouseSchema):
+    city = fields.Str(required=True)
+    state = fields.Str(required=True)
     items = fields.List(fields.Nested(PlainItemSchema()), dump_only=True)
     tags = fields.List(fields.Nested(PlainTagSchema()), dump_only=True)
 
