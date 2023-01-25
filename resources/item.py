@@ -34,6 +34,7 @@ class Item(MethodView):
             item.retail_price = item_data["retail_price"]
             item.wholesale_price = item_data["wholesale_price"]
             item.category = item_data["category"]
+            item.description = item_data["description"]
             item.vendor = item_data["vendor"]
             item.warehouse_id = item_data["warehouse_id"]
             item.quantity = item_data["quantity"]
