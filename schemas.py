@@ -4,10 +4,6 @@ from marshmallow import Schema, fields
 class PlainItemSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
-    retail_price = fields.Float(required=True)
-    wholesale_price = fields.Float(required=True)
-    category = fields.Str(required=True)
-    vendor = fields.Str(required=True)
 
 
 class PlainWarehouseSchema(Schema):
@@ -32,11 +28,16 @@ class ItemUpdateSchema(Schema):
     warehouse = fields.Str()
     warehouse_id = fields.Int()
     quantity = fields.Integer()
+    description = fields.Str()
 
 
 class ItemSchema(PlainItemSchema):
     warehouse_id = fields.Int(required=True, load_only=True)
     warehouse = fields.Nested(PlainWarehouseSchema(), dump_only=True)
+    retail_price = fields.Float(required=True)
+    wholesale_price = fields.Float(required=True)
+    category = fields.Str(required=True)
+    vendor = fields.Str(required=True)
     quantity = fields.Integer(required=True)
     tags = fields.List(fields.Nested(PlainTagSchema()), dump_only=True)
 
