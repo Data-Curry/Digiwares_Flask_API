@@ -9,7 +9,7 @@ from sqlalchemy import or_
 from db import db
 from blocklist import BLOCKLIST
 from models import UserModel
-from schemas import UserSchema, UserRegisterSchema
+from schemas import UserSchema #, UserRegisterSchema
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
@@ -20,7 +20,7 @@ def send_simple_message(to, subject, body):
     return requests.post(
         f"https://api.mailgun.net/v3/{domain}/messages",
         auth=("api", os.getenv("MAILGUN_API_KEY")),
-        data={"from": "Christopher Austin <mailgun@{domain}>",
+        data={"from": f"Christopher Austin <mailgun@{domain}>",
               "to": [to],
               "subject": subject,
               "text": body})
@@ -53,29 +53,17 @@ class UserLogout(MethodView):
 
 @blp.route("/register")
 class UserRegister(MethodView):
-    @blp.arguments(UserRegisterSchema)
+    @blp.arguments(UserSchema)
     def post(self, user_data):                                                             # Create a user
-        if UserModel.query.filter(
-                or_(
-                    UserModel.username == user_data["username"],
-                    UserModel.email == user_data["email"]
-                )
-        ).first():
-            abort(409, message="A user with that username or email already exists.")       # 409 means "conflict"
+        if UserModel.query.filter(UserModel.username == user_data["username"]).first():
+            abort(409, message="A user with that username already exists.")                # 409 means "conflict"
 
         user = UserModel(
             username=user_data["username"],
-            email=user_data["email"],
             password=pbkdf2_sha256.hash(user_data["password"])
         )
         db.session.add(user)
         db.session.commit()
-
-        send_simple_message(
-            to=user.email,
-            subject="Successfully signed up.",
-            body=f"Hi {user.username}!  You have successfully signed up to Digiwares REST API."
-        )
 
         return {"message": "User created successfully."}, 201
 
