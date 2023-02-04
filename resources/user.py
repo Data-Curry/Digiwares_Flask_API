@@ -76,7 +76,7 @@ class UserRegister(MethodView):
             subject="Successfully signed up.",
             body=f"Hi {user.username}!  You have successfully signed up to Digiwares REST API."
         )
-
+        print(f"{user.email}, {user.username}, TESTING")            # test for user creation
         return {"message": "User created successfully."}, 201
 
 
